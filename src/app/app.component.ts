@@ -52,8 +52,10 @@ export class AppComponent implements OnInit {
 
   onSubmit() {
     console.log(this.signupForm);
+    this.signupForm.reset();
   }
 
+  
   // { nameIsForbidden: true}
   forbiddenNames(control: FormControl): { [s: string]: boolean } {
     // anguolar is calling this, so 'this' is not what we expect, must bind
