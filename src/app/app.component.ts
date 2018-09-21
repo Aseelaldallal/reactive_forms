@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
 
   genders = ['male', 'female'];
   signupForm: FormGroup;
-  forbiddenUsernames = ["Aseel", "Helo"];
+  forbiddenUsernames = ["Aseelo", "Helo"];
 
 
   // Initialize form before rendering template
@@ -27,13 +27,21 @@ export class AppComponent implements OnInit {
       'gender': new FormControl('male'), // default value is male
       'hobbies': new FormArray([])
     });
-    // this.signupForm.valueChanges.subscribe((value) => {
-    //   console.log(value);
-    // });
+    this.signupForm.valueChanges.subscribe((value) => {
+      console.log(value);
+    });
     this.signupForm.statusChanges.subscribe((value) => {
       console.log(value);
     });
-
+    this.signupForm.setValue({
+      'userData': {
+        'username': 'Aseel',
+        'email': 'aseel@gmail.com'
+      },
+      'gender': 'male',
+      'hobbies': []
+    })
+    // patchValue if you wanna update a small part of the form
     // Status Changes and Value Changes are two hooks you can subscribe to - cool
   }
 
