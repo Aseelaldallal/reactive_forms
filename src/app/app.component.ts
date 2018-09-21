@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
         'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
         // Validators.required - just a reference: angular will execute validators.required whenever it detects that the input of the form changed  
         // quotations so during minification this property code is kept
-        'email': new FormControl(null, [Validators.required, Validators.email]), // pass an array of validators
+        'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails), // pass an array of validators
       }),
       'gender': new FormControl('male'), // default value is male
       'hobbies': new FormArray([])
@@ -46,6 +47,18 @@ export class AppComponent implements OnInit {
       }
     }
     return null; // IMPORTANT: if validation is successful, you MUST return nothing (omit return) or null
+  }
+
+  forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
+    return new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'blah@test.com') {
+          resolve({ 'emailIsForbidden': true });
+        } else {
+          resolve(null);
+        }
+      }, 1500);
+    });
   }
 
 }
