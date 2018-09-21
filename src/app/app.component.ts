@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +22,14 @@ export class AppComponent implements OnInit {
         // quotations so during minification this property code is kept
         'email': new FormControl(null, [Validators.required, Validators.email]), // pass an array of validators
       }),
-      'gender': new FormControl('male') // default value is male
+      'gender': new FormControl('male'), // default value is male
+      'hobbies': new FormArray([])
     });
+  }
+
+  onAddHobby() { // really cool
+    const control = new FormControl(null, Validators.required);
+    (<FormArray>this.signupForm.get('hobbies')).push(control);
   }
 
   onSubmit() {
