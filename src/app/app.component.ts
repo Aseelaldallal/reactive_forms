@@ -27,6 +27,14 @@ export class AppComponent implements OnInit {
       'gender': new FormControl('male'), // default value is male
       'hobbies': new FormArray([])
     });
+    // this.signupForm.valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // });
+    this.signupForm.statusChanges.subscribe((value) => {
+      console.log(value);
+    });
+
+    // Status Changes and Value Changes are two hooks you can subscribe to - cool
   }
 
   onAddHobby() { // really cool
